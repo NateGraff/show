@@ -13,6 +13,9 @@ def get_output_size(x_dim, y_dim, aspect_ratio):
     else:
         return (floor(y_dim * aspect_ratio), y_dim)
 
+def pixel(red, green, blue):
+    sys.stdout.write(f"\x1b[38;2;{red};{green};{blue}m██\x1b[0m")
+
 if __name__ == "__main__":
     version_string = '.'.join([str(x) for x in list(sys.version_info)[:3]])
 
@@ -33,10 +36,11 @@ if __name__ == "__main__":
 
     print(sys.argv[0] + ": output size is " + str(x_dim) + " by " + str(y_dim))
 
-    im.resize((x_dim, y_dim))
+    im = im.resize((x_dim, y_dim))
 
     for y in range(0, y_dim):
         for x in range(0, x_dim):
-            sys.stdout.write("..")
+            r, g, b = im.getpixel((x, y))
+            pixel(r, g, b)
         sys.stdout.write("\n")
 
