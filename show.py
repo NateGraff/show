@@ -25,7 +25,11 @@ if __name__ == "__main__":
 
     print(sys.argv[0] + ": Terminal size is " + str(x_dim) + " by " + str(y_dim))
 
-    im = Image.open("bun.jpg")
+    if len(sys.argv) < 2:
+        print("ERROR: please provide image to view")
+        exit(1)
+
+    im = Image.open(sys.argv[1])
     
     width, height = im.size
     aspect_ratio = width / height
