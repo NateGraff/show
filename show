@@ -9,9 +9,15 @@ def get_output_size(x_dim, y_dim, aspect_ratio):
     if aspect_ratio == 1:
         return (y_dim, y_dim)
     elif aspect_ratio > 1:
-        return (x_dim, floor(x_dim / aspect_ratio))
+        if floor(x_dim / aspect_ratio) > y_dim:
+            return (floor(y_dim * aspect_ratio), y_dim)
+        else:
+            return (x_dim, floor(x_dim / aspect_ratio))
     else:
-        return (floor(y_dim * aspect_ratio), y_dim)
+        if floor(y_dim * aspect_ratio) > x_dim:
+            return (x_dim, floor(x_dim / aspect_ratio))
+        else:
+            return (floor(y_dim * aspect_ratio), y_dim)
 
 def pixel(red, green, blue):
     sys.stdout.write(f"\x1b[38;2;{red};{green};{blue}m██\x1b[0m")
